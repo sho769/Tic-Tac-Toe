@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     boolean gameActive = true;
+    int flag = 0;
     int activePlayer = 0;
     int[] gameState = {2,2,2,2,2,2,2,2,2};
     int[][] winPositions = {{0,1,2}, {3,4,5}, {6,7,8},
@@ -43,16 +44,33 @@ public class MainActivity extends AppCompatActivity {
                 String winnerStr;
                 gameActive = false;
                 if (gameState[winPosition[0]] == 0) {
-                    winnerStr = "X has won";
+                    winnerStr = "Congratulations X has won!";
                 } else {
-                    winnerStr = "O has won";
+                    winnerStr = "Congratulations O has won!";
                 }
                 // Update the status bar for winner announcement
                 TextView status = findViewById(R.id.status);
                 status.setText(winnerStr);
             }
         }
-    }
+            if(flag==0 && gameActive){
+                for(int i=0; i<gameState.length; i++) {
+                    if (gameState[i] != 2) {
+                        gameActive = false;
+                        flag = 1 ;
+                    } else {
+                        gameActive = true;
+                        flag = 0;
+                        break;
+                    }
+                }
+                if(flag==1)
+                {
+                    TextView status = findViewById(R.id.status);
+                    status.setText("It's a tie! Click to start a new game");
+                }
+            }
+        }
 
     public void gameReset(View view) {
         gameActive = true;
