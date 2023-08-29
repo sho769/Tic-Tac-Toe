@@ -19,6 +19,7 @@ public class MultiplayerActivity extends AppCompatActivity {
         ImageView img = (ImageView) view;
         int tappedImage = Integer.parseInt(img.getTag().toString());
         if (!gameActive) {
+            flag = 0;
             gameReset(view);
         }
         if (gameState[tappedImage] == 2) {
