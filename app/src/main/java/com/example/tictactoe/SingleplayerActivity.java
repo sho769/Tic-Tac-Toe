@@ -39,8 +39,7 @@ public class SingleplayerActivity extends AppCompatActivity {
             gameState[rand-1] = 1;
             img.setTranslationY(-1000f);
             img.setImageResource(R.drawable.o);
-            TextView status2 = findViewById(R.id.status);
-            status2.setText("X's Turn - Tap the tile to play");
+            status.setText("X's Turn - Tap the tile to play");
             img.animate().translationYBy(1000f).setDuration(300);
             System.out.println(rand-1);
         }
