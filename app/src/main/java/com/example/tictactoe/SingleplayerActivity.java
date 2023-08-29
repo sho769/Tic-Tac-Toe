@@ -7,10 +7,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class SingleplayerActivity extends AppCompatActivity {
     boolean gameActive = true;
     int flag = 0;
-    int activePlayer = 0;
     int[] gameState = {2,2,2,2,2,2,2,2,2};
     int[][] winPositions = {{0,1,2}, {3,4,5}, {6,7,8},
             {0,3,6}, {1,4,7}, {2,5,8},
@@ -19,23 +20,29 @@ public class SingleplayerActivity extends AppCompatActivity {
         ImageView img = (ImageView) view;
         int tappedImage = Integer.parseInt(img.getTag().toString());
         if (!gameActive) {
+            flag = 0;
             gameReset(view);
         }
         if (gameState[tappedImage] == 2) {
-            gameState[tappedImage] = activePlayer;
+            gameState[tappedImage] = 0;
             img.setTranslationY(-1000f);
-            if (activePlayer == 0) {
                 img.setImageResource(R.drawable.x);
-                activePlayer = 1;
                 TextView status = findViewById(R.id.status);
                 status.setText("O's Turn - Tap the tile to play");
-            } else {
-                img.setImageResource(R.drawable.o);
-                activePlayer = 0;
-                TextView status = findViewById(R.id.status);
-                status.setText("X's Turn - Tap the tile to play");
-            }
             img.animate().translationYBy(1000f).setDuration(300);
+            Random random = new Random();
+            int rand = 0;
+            while (true){
+                rand = random.nextInt(11);
+                if(gameState[rand-1] == 2) break;
+            }
+            gameState[rand-1] = 1;
+            img.setTranslationY(-1000f);
+            img.setImageResource(R.drawable.o);
+            TextView status2 = findViewById(R.id.status);
+            status2.setText("X's Turn - Tap the tile to play");
+            img.animate().translationYBy(1000f).setDuration(300);
+            System.out.println(rand-1);
         }
         // Check if any player has won
         for (int[] winPosition : winPositions) {
@@ -76,7 +83,6 @@ public class SingleplayerActivity extends AppCompatActivity {
 
     public void gameReset(View view) {
         gameActive = true;
-        activePlayer = 0;
         for(int i=0; i<gameState.length; i++){
             gameState[i] = 2;
         }
