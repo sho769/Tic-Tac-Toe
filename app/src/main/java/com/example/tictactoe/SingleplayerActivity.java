@@ -45,7 +45,7 @@ public class SingleplayerActivity extends AppCompatActivity {
                 img1.setTranslationY(-1000f);
                 img1.setImageResource(R.drawable.o);
                 status.setText("X's Turn - Tap the tile to play");
-                img1.animate().translationYBy(1000f).setDuration(300);
+                img1.animate().translationYBy(1000f).setDuration(800);
                 System.out.println(rand - 1);
                 size--;
             }
